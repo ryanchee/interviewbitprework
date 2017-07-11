@@ -1,0 +1,29 @@
+public class Solution {
+    public ListNode subtract(ListNode a) {
+        Stack first = new Stack();
+        Stack second = new Stack();
+        ListNode toModify = a;
+        int listCount = 0;
+        int mid;
+        while (a != null) {
+            listCount++;
+            first.push(a);
+            a = a.next;
+        }
+        mid = listCount/2;
+        while (mid > 0) {
+            second.push(first.pop());
+            mid--;
+        }
+        if (listCount % 2 != 0) {
+            first.pop();
+        }
+        while (!first.empty() && !second.empty()) {
+            toModify = (ListNode) first.pop();
+            ListNode modifyBy = (ListNode) second.pop();
+            toModify.val = modifyBy.val - toModify.val;
+        }
+        return toModify;
+    }
+}
+
