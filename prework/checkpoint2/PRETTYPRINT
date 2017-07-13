@@ -1,0 +1,45 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> prettyPrint(int a) {
+        int max = (2 * a) - 1;
+        ArrayList<ArrayList<Integer>> toReturn = new
+ArrayList<ArrayList<Integer>>(max);
+        int edge = 0;
+        int maxCol = max;
+        int maxRow = max;
+        int lowestNum = a;
+        int cur = a;
+        int numToInsert = 0;
+        
+        for (int i = 0; i < max; i++) {
+            toReturn.add(i, new ArrayList<Integer>((2 * a) - 1));
+            for (int j = 0; j < max; j++) {
+                if (i == edge || j == edge || i == max-1 || j == max-1) {
+                    toReturn.get(i).add(a);
+                    cur = a;
+                } else {
+                    if (i < a) {
+                        lowestNum = a - i;
+                    } else {
+                        lowestNum = i + 2 - a;
+                    }
+                        if (i + 1 == a && j + 1 == a) {
+                            numToInsert = lowestNum;
+                        } else if (j + 1 < a) {
+                            if (cur > lowestNum) {
+                                cur--;
+                            }
+                            numToInsert = cur;
+                        } else {
+                            if (max - j == a - cur && cur < a) {
+                                cur++;
+                            }
+                            numToInsert = cur;
+                        }
+                        toReturn.get(i).add(numToInsert);
+                }
+            }
+        }
+        return toReturn;
+    }
+}
+

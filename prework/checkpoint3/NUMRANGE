@@ -1,0 +1,23 @@
+public class Solution {
+    public int numRange(ArrayList<Integer> a, int b, int c) {
+        int count = 0;
+        for (int i = 0; i < a.size(); i++) {
+            int sum = a.get(i);
+            if (sum >= b && sum <= c) {
+                count++;
+            }
+            for (int j = i+1; j < a.size(); j++) {
+                sum += a.get(j);
+                if (sum < b) {
+                    continue;
+                } else if (sum <= c) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+}
+

@@ -1,0 +1,23 @@
+public class Solution {
+    public ArrayList<Integer> nextGreater(ArrayList<Integer> a) {
+        ArrayList<Integer> toReturn = new ArrayList<Integer>();
+        int iter = 0;
+        int end = a.size();
+        
+        for (int i = 0; i < a.size(); i++) {
+            int val = a.get(i);
+            iter = i;
+            while (iter != end && a.get(iter) <= val) {
+                iter++;
+            }
+            if (iter == end) {
+                iter = i+1;
+                toReturn.add(-1);
+            } else {
+                toReturn.add(a.get(iter));
+            }
+        }
+        return toReturn;
+    }
+}
+
