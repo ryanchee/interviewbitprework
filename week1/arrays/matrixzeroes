@@ -1,0 +1,47 @@
+public class Solution {
+    public void setZeroes(ArrayList<ArrayList<Integer>> a) {
+        boolean firstRowHasZero = false;
+        boolean firstColHasZero = false;
+        
+        for (int row = 0; row < a.size(); row++) {
+            if (a.get(row).get(0) == 0) {
+                firstRowHasZero = true;
+            }
+        }  
+        
+        for (int col = 0; col < a.get(0).size(); col++) {
+            if (a.get(0).get(col) == 0) {
+                firstColHasZero = true;
+            }
+        } 
+        
+        for (int row = 1; row < a.size(); row++) {
+            for (int col = 1; col < a.get(0).size(); col++) {
+                if (a.get(row).get(col) == 0) {
+                    a.get(row).set(0,0);
+                    a.get(0).set(col,0);
+                }
+            }
+        }
+        
+        for (int row = 1; row < a.size(); row++) {
+            for (int col = 1; col < a.get(0).size(); col++) {
+                if (a.get(row).get(0) == 0 || a.get(0).get(col) == 0) { 
+                        a.get(row).set(col, 0);
+                }
+            }
+        }
+        
+        if (firstRowHasZero) {
+            for (int row = 0; row < a.size(); row++) {
+                a.get(row).set(0, 0);
+            } 
+        }
+        if (firstColHasZero) {
+            for (int col = 0; col < a.get(0).size(); col++) {
+                a.get(0).set(col, 0);
+            } 
+        }
+    }
+}
+
