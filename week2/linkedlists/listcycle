@@ -1,0 +1,19 @@
+public class Solution {
+    public ListNode detectCycle(ListNode a) {
+        if (a == null || a.next == null) {
+            return null;
+        }
+       ListNode iter = a;
+       HashMap<ListNode,Integer> map = new HashMap<ListNode,Integer>();
+       while (iter!=null) {
+           if (map.get(iter) == null) {
+               map.put(iter, 1);
+           } else {
+                map.put(iter, map.get(iter) + 1);
+                return iter;
+           }
+           iter = iter.next;
+       }
+       return null;
+    }
+}

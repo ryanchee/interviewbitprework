@@ -1,0 +1,42 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> anagrams(final List<String> a) {
+        ArrayList<ArrayList<Integer>> toReturn = new
+ArrayList<ArrayList<Integer>>();
+        HashMap<String, List<Integer>> map = new HashMap<String,
+List<Integer>>();
+        List<Integer> list = null;
+        
+        for (int i = 0; i < a.size(); i++) {
+            char[] charArray = a.get(i).toCharArray();
+            Arrays.sort(charArray);
+            String sortedString = new String(charArray);
+            if (map.containsKey(sortedString)) {
+                list = map.get(sortedString);
+                map.remove(sortedString);
+                list.add(i+1);
+                map.put(sortedString, list);
+            } else {
+                list = new LinkedList<Integer>();
+                list.add(i+1);
+                map.put(sortedString, list);
+            }
+        }
+        
+        Iterator mapItr = map.entrySet().iterator();
+        
+        while (mapItr.hasNext()) {
+            int k = 0;
+            int j = 0;
+            Map.Entry pair = (Map.Entry)mapItr.next();
+            list = (List<Integer>) pair.getValue();
+            Iterator<Integer> listItr = list.iterator();
+            toReturn.add(j, new ArrayList<Integer>());
+            while(listItr.hasNext()){  
+                toReturn.get(j).add(k, listItr.next());
+                k++;
+            }
+        }
+        return toReturn;
+    }
+}
+
