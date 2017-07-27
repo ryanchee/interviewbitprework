@@ -1,0 +1,36 @@
+public class Solution {
+    public String longestPalindrome(String a) {
+        String longestPalindrome = "";
+        if (a.length() == 0) {
+            return longestPalindrome;
+        }
+        longestPalindrome = a.substring(0,1);
+        for (int i = 0; i < a.length(); i++) {
+            String palindrome = "";
+            palindrome = findPalindromeWithString(a,i,i+1);
+            if (longestPalindrome.length() < palindrome.length()) {
+                longestPalindrome = palindrome;
+            }
+            palindrome = findPalindromeWithString(a,i,i);
+            if (longestPalindrome.length() < palindrome.length()) {
+                longestPalindrome = palindrome;
+            }
+        }
+        return longestPalindrome;
+        
+    }
+    
+    private String findPalindromeWithString(String a, int left, int right) {
+        String substring = "";
+        if (left > right) {
+            return "";
+        }
+        while (left >= 0 && right < a.length() && a.charAt(left) ==
+a.charAt(right)) {
+            left--;
+            right++;
+        }
+        return a.substring(left+1,right);
+    }
+}
+    
