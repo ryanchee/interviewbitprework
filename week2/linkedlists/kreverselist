@@ -1,0 +1,40 @@
+public class Solution {
+    public ListNode reverseList(ListNode A, int B) {
+        if (B == 1) {
+            return A;
+        }
+        ListNode temp = new ListNode(0);
+        ListNode start = temp;
+        ListNode end = null;
+        ListNode prev = null, curr = null, next = null;
+        temp.next = A;
+
+        while (start.next != null) {
+            curr = start.next;
+            int count = 0;
+            while (count < B) {
+                curr = curr.next;
+                count++;
+            }
+            end = curr;
+            curr = start.next;
+            prev = reverse(curr, end);
+            next = start.next;
+            next.next = end;
+            start.next = prev;
+            start = next;
+        }
+        return temp.next;
+    }
+    
+    private ListNode reverse(ListNode curr, ListNode endNode) {
+        ListNode prev = null, next = null;
+        while (curr != endNode) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+}

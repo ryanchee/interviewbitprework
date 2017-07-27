@@ -1,0 +1,39 @@
+public class Solution {
+    public ListNode addTwoNumbers(ListNode a, ListNode b) {
+        int carry = 0;
+        ListNode head = new ListNode(-1);
+        ListNode end = head;
+        
+        while (a != null || b != null) {
+            int num1 = 0;
+            int num2 = 0;
+            int sum = 0;
+            
+            if (a != null) {
+                num1 = a.val;
+                a = a.next;
+            }
+            if (b != null) {
+                num2 = b.val;
+                b = b.next;
+            }
+            
+            sum = num1 + num2 + carry;
+            if (sum >= 10) {
+                sum = sum%10;
+                carry = 1;
+            } else {
+                carry = 0;
+            }
+            ListNode node = new ListNode(sum);
+            end.next = node;
+            end = node; 
+        }
+        if (carry == 1) {
+            ListNode node = new ListNode(carry);
+            end.next = node;
+            end = node;
+        }
+        return head.next;
+    }
+}

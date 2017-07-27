@@ -1,0 +1,21 @@
+public class Solution {
+    public int diffPossible(final List<Integer> a, int b) {
+        HashSet<Integer> set = new HashSet<Integer>();
+        for (Integer i: a) {
+            int val = 0;
+            if (i < b) {
+                val = i+b;
+            } else {
+                val = i-b;
+            }
+
+            if (set.contains(i)) {
+                return 1;
+            } else {
+                set.add(val);
+            }
+        }
+        return 0;
+    }
+}
+

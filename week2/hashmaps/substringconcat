@@ -1,0 +1,74 @@
+public class Solution {
+    public ArrayList<Integer> findSubstring(String a, final List<String> b) {
+
+        HashMap<Character,Integer> map = new HashMap<Character,Integer>();
+        HashMap<String,Integer> listMap = new HashMap<String,Integer>();
+        ArrayList<Integer> returnIndices = new ArrayList<Integer>();
+        int listTotal = 0;
+        int startIndex = -1;
+        
+        if (b.isEmpty()) {
+            return returnIndices;
+        }
+        if (a.length() == 1) {
+            if (b.get(0).charAt(0) == a.charAt(0)) {
+                returnIndices.add(0);
+                return returnIndices;
+            }
+        }
+        
+        int wordLength = b.get(0).length();
+        int wordCount = b.size();
+        for (int i = 0; i < b.size(); i++) {
+            String key = b.get(i).substring(0, b.get(i).length());
+            if (listMap.get(key) == null) {
+                listMap.put(key, 1);
+            } else {
+                int temp = 0;
+                temp += listMap.get(key);
+                listMap.remove(key);
+                listMap.put(key, temp + 1);
+            }
+            listTotal += 1;
+        }
+        HashMap<String, Integer> tempMap = (HashMap<String, Integer>)
+listMap.clone(); 
+        
+        for(int i=0; i <= a.length()-(wordLength*wordCount); i++)
+         {
+             String key = a.substring(i, i+wordLength);
+             if(tempMap.containsKey(key))
+             {
+                 if(checkHashMap(tempMap, a.substring(i), wordCount*wordLength,
+wordLength))
+                 {
+                     returnIndices.add(i);                  
+                 }
+                 tempMap = (HashMap<String, Integer>) listMap.clone();  
+             }
+         }
+        return returnIndices;
+    }
+    
+    private boolean checkHashMap(HashMap<String,Integer> listMap, String a, int
+charMax, int wordLength) {
+        String str;
+        for(int i=0; i < charMax; i = i + wordLength)
+        {
+            str =a.substring(i, i + wordLength); 
+            if(listMap.containsKey(str))
+            {
+                if(listMap.get(str) < 1) {
+                    return false; }
+                else {
+                    listMap.put(str, listMap.get(str)-1);   
+                }
+            } else {
+                return false; 
+            }
+        }
+        return true; 
+    }
+}
+
+
