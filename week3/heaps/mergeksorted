@@ -1,0 +1,39 @@
+public class Solution {
+    public ListNode mergeKLists(ArrayList<ListNode> a) {
+        ListNode head = new ListNode(-1);
+        ListNodeComparator compare = new ListNodeComparator();
+        PriorityQueue<ListNode> pq = new PriorityQueue<ListNode>(a.size(),
+compare);
+        if (a == null) {
+            return head.next;
+        }
+        for (ListNode node : a) {
+            while (node != null) {
+                pq.add(node);
+                node = node.next;
+            }
+        }
+        ListNode temp = head;
+        while (temp != null) {
+            ListNode poll = pq.poll();
+            temp.next = poll;
+            temp = temp.next;
+        }
+        return head.next;
+    }
+
+}
+
+class ListNodeComparator
+    implements Comparator<Object>
+{
+
+    public int compare(Object o1, Object o2)
+    {
+
+        ListNode a1 = (ListNode)o1;
+        ListNode a2 = (ListNode)o2;
+
+        return Integer.compare(a1.val, a2.val);
+    }
+}
