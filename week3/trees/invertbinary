@@ -1,0 +1,27 @@
+public class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        invertSubtree(root);
+        return root;
+    }
+    private void invertSubtree(TreeNode node) {
+        TreeNode temp = null;
+        if (node == null) {
+            return;
+        }
+        if (node.left != null && node.right != null) {
+            temp = node.left;
+            node.left = node.right;
+            node.right = temp;
+            invertSubtree(node.left);
+            invertSubtree(node.right);
+        } else if (node.left != null && node.right == null) {
+            node.right = node.left;
+            node.left = null;
+            invertSubtree(node.right);
+        } else if (node.left == null && node.right != null) {
+            node.left = node.right;
+            node.right = null;
+            invertSubtree(node.left);
+        }
+    }
+}

@@ -1,0 +1,29 @@
+public class Solution {
+    public int isBalanced(TreeNode a) {
+        int result = getHeight(a);
+        
+        if (result >= 1) {
+            return 1;
+        }
+        return 0;
+        
+    }
+    
+    public int getHeight(TreeNode a) {
+        if (a == null) {
+            return 0;
+        }
+         
+        int leftSubtreeHeight = getHeight(a.left);
+        int rightSubtreeHeight = getHeight(a.right);
+        if (leftSubtreeHeight == -1 || rightSubtreeHeight == -1) {
+            return -1;
+        }
+        if (Math.abs(leftSubtreeHeight - rightSubtreeHeight) > 1) {
+            return -1;
+        }
+    
+        return Math.max(rightSubtreeHeight, leftSubtreeHeight) + 1;    
+    }
+}
+
